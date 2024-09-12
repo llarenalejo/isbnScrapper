@@ -2,11 +2,15 @@ import requests
 from bs4 import BeautifulSoup, Tag
 import TituloClass 
 
-# scrap ttrought the page with info of an specific tittle using the id
+
 def leer_titulo_por_id(id):
+    """    
+    Scrap ttrought the page with info of an specific tittle using the id
+    Args:
+        id: numeric id of the tittle in the isbn website
+    """
     url="https://isbnmexico.indautor.cerlalc.org/catalogo.php?mode=detalle&nt="+id
-    page= requests.get(url)
-    paragraphArray=[]
+    page= requests.get(url)    
     libro_datos={}
 
     soup = BeautifulSoup(page.content,"html.parser")
@@ -23,14 +27,14 @@ def leer_titulo_por_id(id):
     libro_datos["isbn"]=isbn
     libro_datos["titulo"]=titulo
     
-    for label in results.find_all("span", attrs={"class": ["labels","labels C_Colaboradores"]}): #results.find_all("span", class_="labels"):
-        key=label.text.strip().split(":")[0]  #texto del label como keu
+    for label in results.find_all("span", attrs={"class": ["labels","labels C_Colaboradores"]}): 
+        key=label.text.strip().split(":")[0]  #texto del label como key
         if key in ("Autor","Autores","Colaborador","Colaboradores"):
-            value_span=label.find_next_siblings("a") #label.find_next_sibling("a")
-            #print(str(label.find_next_siblings(attrs={"class":"texto"})[0].text)+"\n")
+            value_span=label.find_next_siblings("a") 
+            
             
             value=label.find_next_siblings(attrs={"class":"texto"})[0].text
-            #print(allValueSiblings+"\n")
+            
             
         else:
             value_span=label.find_next_sibling("span") # busca el span que sigue para sacarle el valor
