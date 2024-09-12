@@ -13,11 +13,9 @@ def sendEmail(lista_de_ids):
     msg = EmailMessage()
     msg.set_content(lista_de_ids)
 
-    # me == the sender's email address
-    # you == the recipient's email address
     msg['Subject'] = f'se encontraron nuevos registros isbn'
-    msg['From'] = "llarenalejo@gmail.com"
-    msg['To'] = "llarenalejo@gmail.com"
+    msg['From'] = "@gmail.com"
+    msg['To'] = "@gmail.com"
 
     port=1025
     # Send the message via our own SMTP server.
